@@ -25,7 +25,7 @@ export function SiteShell({
     <div className="min-h-screen bg-bg">
       {/* Top bar — Podar/GIIS style contact strip */}
       <div className="bg-primary-dark text-white">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2.5 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-6xl flex-col gap-1.5 px-4 py-1.5 text-xs sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:py-2 sm:text-sm">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <span className="flex items-center gap-1.5">
               <MapPin className="size-4 shrink-0 text-saffron-soft" />
@@ -58,11 +58,11 @@ export function SiteShell({
 
       {/* Admissions ribbon — Adani “Enrol Now” energy */}
       <div className="bg-saffron text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-sm font-bold">
-          <span>Admissions Open 2026–27 · Pre-Primary to Class 12 · Science &amp; Commerce</span>
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-1.5 text-xs font-semibold sm:py-2 sm:text-sm sm:font-bold">
+          <span className="leading-snug">Admissions Open 2026–27 · Pre-Primary to Class 12</span>
           <Link
             to="/admissions"
-            className="rounded-full bg-white px-4 py-1.5 text-saffron shadow-sm hover:bg-cream"
+            className="rounded-full bg-white px-3 py-1 text-saffron shadow-sm hover:bg-cream sm:px-4 sm:py-1.5"
           >
             Apply Now →
           </Link>
@@ -70,17 +70,17 @@ export function SiteShell({
       </div>
 
       <header className="sticky top-0 z-40 border-b border-line bg-paper/95 shadow-sm backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:py-3">
           <Link to="/" className="flex min-w-0 items-center gap-3">
-            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-lg shadow-primary/25">
-              <GraduationCap className="size-6" />
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-primary-dark text-white shadow-md shadow-primary/20 sm:size-12 sm:rounded-2xl">
+              <GraduationCap className="size-5 sm:size-6" />
             </span>
             <span className="min-w-0 leading-tight">
-              <span className="block truncate text-base font-extrabold tracking-tight text-primary-dark sm:text-lg">
+              <span className="block truncate text-sm font-bold tracking-tight text-primary-dark sm:text-lg sm:font-extrabold">
                 {settings.school_name}
               </span>
-              <span className="block truncate text-xs font-medium text-muted sm:text-sm">
-                {settings.gujarati_name} · Mangaldeep Campus, Ranip
+              <span className="block truncate text-[11px] font-normal text-muted sm:text-sm sm:font-medium">
+                {settings.gujarati_name} · Mangaldeep Campus
               </span>
             </span>
           </Link>
@@ -107,7 +107,7 @@ export function SiteShell({
 
           <button
             type="button"
-            className="grid size-12 place-items-center rounded-2xl border-2 border-primary bg-primary-light text-primary lg:hidden"
+            className="grid size-10 place-items-center rounded-xl border border-primary/40 bg-primary-light text-primary lg:hidden sm:size-11"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -125,8 +125,8 @@ export function SiteShell({
                   to={item.to}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "rounded-2xl px-4 py-3.5 text-base font-semibold",
-                    pathname === item.to ? "bg-primary text-white" : "bg-cream text-ink",
+                    "rounded-xl px-3 py-2.5 text-sm font-medium",
+                    pathname === item.to ? "bg-primary text-white" : "bg-cream/80 text-ink",
                   )}
                 >
                   {item.label}
@@ -135,7 +135,7 @@ export function SiteShell({
               <Link
                 to="/admissions"
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-2xl bg-saffron px-4 py-4 text-center text-base font-bold text-white"
+                className="mt-2 rounded-xl bg-saffron px-4 py-3 text-center text-sm font-semibold text-white"
               >
                 Apply Now — Admission 2026–27
               </Link>
@@ -193,7 +193,7 @@ export function SiteShell({
         href={waLink(settings.whatsapp || settings.phone1)}
         target="_blank"
         rel="noreferrer"
-        className="fixed right-4 bottom-4 z-40 inline-flex h-14 items-center gap-2 rounded-full bg-green px-5 text-base font-bold text-white shadow-xl shadow-green/30"
+        className="fixed right-3 bottom-3 z-40 inline-flex h-11 items-center gap-1.5 rounded-full bg-green px-3.5 text-sm font-semibold text-white shadow-lg shadow-green/25 sm:right-4 sm:bottom-4 sm:h-12 sm:px-4"
       >
         <MessageCircle className="size-5" />
         WhatsApp

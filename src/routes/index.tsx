@@ -52,33 +52,33 @@ function Home() {
   return (
     <SiteShell settings={settings}>
       {/* HERO — Adani full-bleed style */}
-      <section className="relative min-h-[70vh] overflow-hidden md:min-h-[78vh]">
+      <section className="relative min-h-[58vh] overflow-hidden sm:min-h-[70vh] md:min-h-[78vh]">
         <img
           src="/campus/assembly-2.jpg"
           alt="Morning assembly at Mangaldeep Vidyalay"
           className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/80 to-primary-dark/40" />
-        <div className="relative mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-4 py-16 md:min-h-[78vh] md:py-24">
-          <p className="inline-flex w-fit items-center rounded-full bg-saffron px-4 py-1.5 text-sm font-bold text-white shadow-md">
+        <div className="relative mx-auto flex min-h-[58vh] max-w-6xl flex-col justify-center px-4 py-10 sm:min-h-[70vh] sm:py-16 md:min-h-[78vh] md:py-24">
+          <p className="inline-flex w-fit items-center rounded-full bg-saffron px-3 py-1 text-xs font-semibold text-white shadow-sm sm:px-4 sm:py-1.5 sm:text-sm sm:font-bold">
             Admissions Open 2026–27
           </p>
-          <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl">
+          <h1 className="mt-4 max-w-3xl text-3xl font-bold leading-[1.15] tracking-tight text-white sm:mt-5 sm:text-5xl sm:font-extrabold md:text-6xl">
             {settings.gujarati_name}
           </h1>
-          <p className="mt-3 text-xl font-semibold text-white/95 sm:text-2xl">
+          <p className="mt-2 text-lg font-semibold text-white/95 sm:mt-3 sm:text-2xl">
             Shyam International School
             <span className="font-medium text-white/75"> · Mangaldeep Campus</span>
           </p>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/90 sm:mt-5 sm:text-lg">
             A trusted Ranip school since <strong className="text-saffron-soft">1987</strong>. GSEB · Pre-Primary to Class 12
             · Science &amp; Commerce. {settings.tagline}.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="rounded-full bg-saffron px-8 text-base font-bold text-white shadow-lg hover:bg-saffron/90">
+            <Button asChild size="lg" className="rounded-full bg-saffron px-5 text-sm font-semibold text-white shadow-md hover:bg-saffron/90 sm:px-8 sm:text-base sm:font-bold">
               <Link to="/admissions">Start Your Journey</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full border-2 border-white/60 bg-white/10 text-base font-semibold text-white hover:bg-white/20">
+            <Button asChild size="lg" variant="outline" className="rounded-full border border-white/50 bg-white/10 text-sm font-medium text-white hover:bg-white/20 sm:border-2 sm:text-base sm:font-semibold">
               <Link to="/gallery">View Campus</Link>
             </Button>
           </div>
@@ -93,10 +93,10 @@ function Home() {
             <Link
               key={q.to}
               to={q.to}
-              className={`flex flex-col items-center gap-2 rounded-2xl px-3 py-5 text-center shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl ${q.tone}`}
+              className={`flex flex-col items-center gap-1.5 rounded-xl px-2 py-3.5 text-center shadow-md transition hover:-translate-y-0.5 hover:shadow-lg sm:rounded-2xl sm:px-3 sm:py-5 sm:shadow-lg ${q.tone}`}
             >
-              <q.icon className="size-7" />
-              <span className="text-sm font-bold">{q.label}</span>
+              <q.icon className="size-5 sm:size-7" />
+              <span className="text-xs font-semibold sm:text-sm sm:font-bold">{q.label}</span>
             </Link>
           ))}
         </div>
@@ -111,22 +111,22 @@ function Home() {
             { value: "~400", label: "Science students / year", icon: FlaskConical },
             { value: "99.27", label: "Top Commerce PR", icon: Star },
           ].map((s) => (
-            <div key={s.label} className="rounded-3xl border border-line bg-paper p-6 text-center shadow-sm">
-              <s.icon className="mx-auto size-8 text-primary" />
-              <p className="mt-3 text-3xl font-extrabold text-primary-dark md:text-4xl">{s.value}</p>
-              <p className="mt-1 text-sm font-medium text-muted">{s.label}</p>
+            <div key={s.label} className="rounded-2xl border border-line bg-paper p-4 text-center shadow-sm sm:rounded-3xl sm:p-6">
+              <s.icon className="mx-auto size-6 text-primary sm:size-8" />
+              <p className="mt-2 text-2xl font-bold text-primary-dark sm:mt-3 sm:text-3xl sm:font-extrabold md:text-4xl">{s.value}</p>
+              <p className="mt-1 text-xs font-medium text-muted sm:text-sm">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Why us — Adani “Who We Are” */}
-      <section className="bg-cream py-16">
+      <section className="bg-cream py-10 sm:py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="grid items-center gap-12 md:grid-cols-2">
             <div>
               <p className="text-sm font-bold tracking-widest text-saffron uppercase">Who we are</p>
-              <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">
+              <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl sm:font-extrabold md:text-4xl">
                 Why families choose Mangaldeep
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted">
@@ -167,9 +167,9 @@ function Home() {
       </section>
 
       {/* Curriculum bands — Adani grade cards */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:py-16">
         <p className="text-sm font-bold tracking-widest text-saffron uppercase">Learning</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">Curriculum pathway</h2>
+        <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl sm:font-extrabold md:text-4xl">Curriculum pathway</h2>
         <p className="mt-2 max-w-2xl text-muted">From first steps to board exams — clear stages on one campus.</p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CLASS_BANDS.map((c) => (
@@ -188,10 +188,10 @@ function Home() {
       </section>
 
       {/* Facilities highlights — Podar key highlights */}
-      <section className="bg-primary-dark py-16 text-white">
+      <section className="bg-primary-dark py-10 text-white sm:py-16">
         <div className="mx-auto max-w-6xl px-4">
           <p className="text-sm font-bold tracking-widest text-saffron-soft uppercase">Campus</p>
-          <h2 className="mt-2 text-3xl font-extrabold md:text-4xl">Key highlights</h2>
+          <h2 className="mt-2 text-2xl font-bold sm:text-3xl sm:font-extrabold md:text-4xl">Key highlights</h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { icon: Library, title: "Library & book bank", text: "Thousands of titles for board and competitive study." },
@@ -212,12 +212,12 @@ function Home() {
       </section>
 
       {/* Toppers — SSIS brightening stars */}
-      <section className="bg-saffron-soft py-16">
+      <section className="bg-saffron-soft py-10 sm:py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-sm font-bold tracking-widest text-saffron uppercase">Results</p>
-              <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">Our shining stars</h2>
+              <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl sm:font-extrabold md:text-4xl">Our shining stars</h2>
             </div>
             <Link to="/results" className="font-bold text-primary hover:underline">
               All results →
@@ -230,11 +230,11 @@ function Home() {
                   {t.position} · {t.year}
                 </div>
                 <div className="p-8 text-center">
-                  <div className="mx-auto mb-4 grid size-16 place-items-center rounded-full bg-saffron text-2xl font-extrabold text-white shadow-md">
+                  <div className="mx-auto mb-3 grid size-12 place-items-center rounded-full bg-saffron text-lg font-bold text-white shadow-sm sm:mb-4 sm:size-16 sm:text-2xl sm:font-extrabold sm:shadow-md">
                     {i + 1}
                   </div>
-                  <h3 className="text-xl font-extrabold text-primary-dark">{t.name}</h3>
-                  <p className="mt-3 text-4xl font-extrabold text-saffron">{t.score}</p>
+                  <h3 className="text-lg font-bold text-primary-dark sm:text-xl sm:font-extrabold">{t.name}</h3>
+                  <p className="mt-2 text-3xl font-bold text-saffron sm:mt-3 sm:text-4xl sm:font-extrabold">{t.score}</p>
                   <p className="mt-2 text-sm font-medium text-muted">{t.class_name}</p>
                 </div>
               </article>
@@ -247,9 +247,9 @@ function Home() {
       </section>
 
       {/* Life at school — Adani photo cards */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:py-16">
         <p className="text-sm font-bold tracking-widest text-saffron uppercase">School life</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">A place to grow</h2>
+        <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl sm:font-extrabold md:text-4xl">A place to grow</h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {LIFE.map((card) => (
             <article key={card.title} className="group overflow-hidden rounded-3xl border border-line bg-paper shadow-sm transition hover:shadow-lg">
@@ -257,7 +257,7 @@ function Home() {
                 <img
                   src={card.src}
                   alt={card.title}
-                  className="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
+                  className="h-40 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-52"
                   loading="lazy"
                 />
               </div>
@@ -276,10 +276,10 @@ function Home() {
       </section>
 
       {/* Testimonials — GIIS parents */}
-      <section className="bg-cream py-16">
+      <section className="bg-cream py-10 sm:py-16">
         <div className="mx-auto max-w-6xl px-4">
           <p className="text-sm font-bold tracking-widest text-saffron uppercase">Parents</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">What families say</h2>
+          <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl sm:font-extrabold md:text-4xl">What families say</h2>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
               <blockquote key={t.name} className="rounded-3xl bg-paper p-6 shadow-md">
@@ -297,11 +297,11 @@ function Home() {
       </section>
 
       {/* News — Adani stories */}
-      <section className="mx-auto max-w-6xl px-4 py-16">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:py-16">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-sm font-bold tracking-widest text-saffron uppercase">Stories</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">Events &amp; notices</h2>
+            <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl sm:font-extrabold md:text-4xl">Events &amp; notices</h2>
           </div>
           <Link to="/news" className="font-bold text-primary hover:underline">
             View all →
@@ -328,7 +328,7 @@ function Home() {
       </section>
 
       {/* Video lower — Adani style */}
-      <section className="bg-primary-dark py-16">
+      <section className="bg-primary-dark py-10 sm:py-16">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 md:grid-cols-2">
           <div className="overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
             <iframe
@@ -341,7 +341,7 @@ function Home() {
           </div>
           <div className="text-white">
             <p className="text-sm font-bold tracking-widest text-saffron-soft uppercase">Campus film</p>
-            <h2 className="mt-2 text-3xl font-extrabold md:text-4xl">See life at Mangaldeep</h2>
+            <h2 className="mt-2 text-2xl font-bold sm:text-3xl sm:font-extrabold md:text-4xl">See life at Mangaldeep</h2>
             <p className="mt-4 text-base text-white/80">
               Assemblies, classrooms and daily moments from our YouTube channel — the real feel of Ranip’s long-running science campus.
             </p>
@@ -355,9 +355,9 @@ function Home() {
       </section>
 
       {/* Enrol CTA — Adani Enrol Now */}
-      <section className="bg-saffron py-16">
+      <section className="bg-saffron py-10 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 text-center text-white">
-          <h2 className="text-3xl font-extrabold md:text-4xl">Enrol now for 2026–27</h2>
+          <h2 className="text-2xl font-bold sm:text-3xl sm:font-extrabold md:text-4xl">Enrol now for 2026–27</h2>
           <p className="mx-auto mt-4 max-w-lg text-base text-white/90">
             Pre-Primary, Classes 1–10, Class 11 Science &amp; Commerce. Fill the inquiry form or WhatsApp the office today.
           </p>
