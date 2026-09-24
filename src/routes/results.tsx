@@ -12,7 +12,7 @@ function Results() {
   return (
     <SiteShell settings={settings}>
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <h1 className="font-display text-4xl text-navy">Shining stars</h1>
+        <h1 className="font-display text-4xl text-primary-dark">Shining stars</h1>
         <p className="mt-2 max-w-2xl text-muted">
           Class 12 Commerce — dedication, resilience and progress at Shyam International School, Mangaldeep Campus.
         </p>
@@ -23,8 +23,8 @@ function Results() {
               <p className="text-xs tracking-wide text-muted uppercase">
                 {t.position} · {t.stream} · {t.year}
               </p>
-              <h2 className="mt-2 font-display text-2xl text-navy">{t.name}</h2>
-              <p className="mt-1 text-xl font-semibold tabular-nums text-teal">{t.score}</p>
+              <h2 className="mt-2 font-display text-2xl text-primary-dark">{t.name}</h2>
+              <p className="mt-1 text-xl font-semibold tabular-nums text-primary">{t.score}</p>
               <p className="mt-2 text-sm text-muted">{t.class_name}</p>
             </article>
           ))}

@@ -13,8 +13,8 @@ function About() {
   return (
     <SiteShell settings={settings}>
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">About us</p>
-        <h1 className="mt-2 font-display text-4xl text-navy">{settings.gujarati_name}</h1>
+        <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">About us</p>
+        <h1 className="mt-2 font-display text-4xl text-primary-dark">{settings.gujarati_name}</h1>
         <p className="mt-2 text-lg text-muted">
           {settings.school_name} · {settings.campus_name}
         </p>
@@ -47,15 +47,15 @@ function About() {
           ].map(([k, v]) => (
             <div key={k} className="rounded-xl border border-line bg-surface p-5">
               <dt className="text-xs tracking-wide text-muted uppercase">{k}</dt>
-              <dd className="mt-1 font-display text-xl text-navy">{v}</dd>
+              <dd className="mt-1 font-display text-xl text-primary-dark">{v}</dd>
             </div>
           ))}
         </dl>
         <div className="mt-10 flex flex-wrap gap-4 text-sm">
-          <a className="text-teal underline" href={YOUTUBE_CHANNEL} target="_blank" rel="noreferrer">
+          <a className="text-primary underline" href={YOUTUBE_CHANNEL} target="_blank" rel="noreferrer">
             YouTube channel
           </a>
-          <a className="text-teal underline" href={FACEBOOK_PAGE} target="_blank" rel="noreferrer">
+          <a className="text-primary underline" href={FACEBOOK_PAGE} target="_blank" rel="noreferrer">
             Facebook page
           </a>
         </div>

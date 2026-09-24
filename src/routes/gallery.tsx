@@ -12,7 +12,7 @@ function Gallery() {
   return (
     <SiteShell settings={settings}>
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <h1 className="font-display text-4xl text-navy">Gallery</h1>
+        <h1 className="font-display text-4xl text-primary-dark">Gallery</h1>
         <p className="mt-2 text-muted">Campus, assembly, classrooms and notices from Mangaldeep Vidyalay, Ranip.</p>
         <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3">
           {gallery.map((g) => (

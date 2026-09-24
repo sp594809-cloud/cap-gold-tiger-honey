@@ -6,6 +6,7 @@ export const NAV = [
   { to: "/gallery", label: "Gallery" },
   { to: "/news", label: "News" },
   { to: "/results", label: "Results" },
+  { to: "/disclosures", label: "Disclosures" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -16,14 +17,21 @@ export const UDISE = "24070501061";
 
 export const CAMPUS_IMAGES = [
   { src: "/campus/gate.jpg", title: "Main gate" },
+  { src: "/campus/gate-2.jpg", title: "Gate with board" },
   { src: "/campus/building.jpg", title: "School building" },
+  { src: "/campus/building-2.jpg", title: "Campus view" },
   { src: "/campus/entrance.jpg", title: "Entrance" },
+  { src: "/campus/entrance-2.jpg", title: "Students at entrance" },
   { src: "/campus/assembly.jpg", title: "Assembly" },
+  { src: "/campus/assembly-2.jpg", title: "Courtyard assembly" },
   { src: "/campus/classroom.jpg", title: "Classroom" },
-  { src: "/campus/toppers.jpg", title: "Toppers" },
-  { src: "/campus/admission.jpg", title: "Admission" },
+  { src: "/campus/classroom-award.jpg", title: "Classroom award" },
+  { src: "/campus/toppers-poster.jpg", title: "Toppers poster" },
+  { src: "/campus/admission-poster.jpg", title: "Admission open" },
   { src: "/campus/saraswati.jpg", title: "Saraswati" },
+  { src: "/campus/saraswati-2.jpg", title: "Saraswati blessing" },
 ];
+
 
 export const FACILITIES = [
   { title: "Library & book bank", text: "Reading room with thousands of titles for board and competitive study." },

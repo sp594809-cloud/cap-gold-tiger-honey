@@ -15,7 +15,7 @@ function Contact() {
   return (
     <SiteShell settings={settings}>
       <div className="mx-auto max-w-6xl px-4 py-12">
-        <h1 className="font-display text-4xl text-navy">Get in touch</h1>
+        <h1 className="font-display text-4xl text-primary-dark">Get in touch</h1>
         <div className="mt-8 grid gap-8 md:grid-cols-2">
           <div className="rounded-2xl border border-line bg-surface p-6">
             <p className="text-sm text-muted">Address</p>
@@ -25,20 +25,20 @@ function Contact() {
             <p className="mt-4 text-sm text-muted">Phone</p>
             <div className="mt-1 flex flex-col gap-1">
               {phones.map((p) => (
-                <a key={p} href={telLink(p)} className="text-teal hover:underline">
+                <a key={p} href={telLink(p)} className="text-primary hover:underline">
                   {p}
                 </a>
               ))}
             </div>
             <p className="mt-4 text-sm text-muted">Email</p>
-            <a href={`mailto:${settings.email}`} className="text-teal hover:underline">
+            <a href={`mailto:${settings.email}`} className="text-primary hover:underline">
               {settings.email}
             </a>
             <div className="mt-6 flex gap-4 text-sm">
-              <a href={YOUTUBE_CHANNEL} className="text-teal underline" target="_blank" rel="noreferrer">
+              <a href={YOUTUBE_CHANNEL} className="text-primary underline" target="_blank" rel="noreferrer">
                 YouTube
               </a>
-              <a href={FACEBOOK_PAGE} className="text-teal underline" target="_blank" rel="noreferrer">
+              <a href={FACEBOOK_PAGE} className="text-primary underline" target="_blank" rel="noreferrer">
                 Facebook
               </a>
             </div>

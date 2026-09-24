@@ -70,8 +70,8 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
     slug: "admission-open-2026-27",
     excerpt:
       "Pre-Primary, Classes 1–10, and Class 11 Science & Commerce seats are open at Mangaldeep Campus.",
-    body: "Admissions are open for Pre-Primary, Classes 1 to 10, and Class 11 Science / Commerce. Visit the campus near Swaminarayan Park, Ranip, or call 9824552964 / 9172115777. Our focus remains the same: best education in least fees, with weekly tests, board practice, and personal attention.",
-    image_url: "/campus/admission.jpg",
+    body: "Admissions are open for Pre-Primary, Classes 1 to 10, and Class 11 Science / Commerce. Visit the campus near Swaminarayan Park, Ranip, or call 9824552964 / 9172115777 / 7226015795. Our focus remains the same: best education in least fees, with weekly tests, board practice, and personal attention.",
+    image_url: "/campus/admission-poster.jpg",
   },
   {
     title: "Shining Stars of 12th Commerce",
@@ -79,7 +79,7 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
     excerpt:
       "Congratulations to Agarwal Ayushie (PR 99.27), Adheshra Saumya (98.26) and Chauhan Hetaksh (PR 92.43).",
     body: "A joyful moment honouring dedication, resilience and progress. Agarwal Ayushie scored PR 99.27, Adheshra Saumya scored 98.26, and Chauhan Hetaksh scored PR 92.43 in Class 12 Commerce. The school family congratulates every student who reached higher goals with passion and gratitude.",
-    image_url: "/campus/toppers.jpg",
+    image_url: "/campus/toppers-poster.jpg",
   },
   {
     title: "Morning Assembly at Campus",
@@ -87,17 +87,25 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
     excerpt:
       "Students gather each morning in the courtyard for prayer, news and the day's thought.",
     body: "The courtyard assembly remains the heartbeat of Mangaldeep Vidyalay. Students sit together for prayer, national thought, and announcements — a daily reminder that discipline and community come before textbooks.",
-    image_url: "/campus/assembly.jpg",
+    image_url: "/campus/assembly-2.jpg",
   },
 ];
 
 const DEFAULT_GALLERY: Omit<GalleryItem, "id" | "created_at">[] = [
   { title: "Main gate", image_url: "/campus/gate.jpg", category: "Campus" },
+  { title: "Gate with school board", image_url: "/campus/gate-2.jpg", category: "Campus" },
   { title: "School building", image_url: "/campus/building.jpg", category: "Campus" },
+  { title: "Campus building view", image_url: "/campus/building-2.jpg", category: "Campus" },
   { title: "Entrance stairs", image_url: "/campus/entrance.jpg", category: "Campus" },
+  { title: "Students at entrance", image_url: "/campus/entrance-2.jpg", category: "Campus" },
   { title: "Morning assembly", image_url: "/campus/assembly.jpg", category: "Events" },
+  { title: "Full courtyard assembly", image_url: "/campus/assembly-2.jpg", category: "Events" },
   { title: "Classroom moment", image_url: "/campus/classroom.jpg", category: "Life" },
-  { title: "Commerce toppers", image_url: "/campus/toppers.jpg", category: "Results" },
+  { title: "Award in classroom", image_url: "/campus/classroom-award.jpg", category: "Life" },
+  { title: "Commerce toppers poster", image_url: "/campus/toppers-poster.jpg", category: "Results" },
+  { title: "Admission open 2026", image_url: "/campus/admission-poster.jpg", category: "Admissions" },
+  { title: "Goddess Saraswati", image_url: "/campus/saraswati.jpg", category: "Culture" },
+  { title: "Saraswati blessing", image_url: "/campus/saraswati-2.jpg", category: "Culture" },
   { title: "Admission notice", image_url: "/campus/admission.jpg", category: "Notices" },
   { title: "Saraswati blessing", image_url: "/campus/saraswati.jpg", category: "Culture" },
 ];
