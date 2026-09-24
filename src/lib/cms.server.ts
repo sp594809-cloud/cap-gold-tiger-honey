@@ -96,20 +96,14 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
 ];
 
 const DEFAULT_GALLERY: Omit<GalleryItem, "id" | "created_at">[] = [
-  { title: "Main gate", image_url: "/campus/gate.jpg", category: "Campus" },
-  { title: "Gate with school board", image_url: "/campus/gate-2.jpg", category: "Campus" },
-  { title: "School building", image_url: "/campus/building.jpg", category: "Campus" },
-  { title: "Campus building view", image_url: "/campus/building-2.jpg", category: "Campus" },
-  { title: "Entrance stairs", image_url: "/campus/entrance.jpg", category: "Campus" },
-  { title: "Students at entrance", image_url: "/campus/entrance-2.jpg", category: "Campus" },
-  { title: "Morning assembly", image_url: "/campus/assembly.jpg", category: "Events" },
-  { title: "Full courtyard assembly", image_url: "/campus/assembly-2.jpg", category: "Events" },
-  { title: "Classroom moment", image_url: "/campus/classroom.jpg", category: "Life" },
-  { title: "Award in classroom", image_url: "/campus/classroom-award.jpg", category: "Life" },
-  { title: "Commerce toppers poster", image_url: "/campus/toppers-poster.jpg", category: "Results" },
-  { title: "Admission open 2026", image_url: "/campus/admission-poster.jpg", category: "Admissions" },
-  { title: "Goddess Saraswati", image_url: "/campus/saraswati.jpg", category: "Culture" },
-  { title: "Saraswati blessing", image_url: "/campus/saraswati-2.jpg", category: "Culture" },
+  { title: "School gate", image_url: "/campus/gate-2.jpg", category: "Campus" },
+  { title: "Campus building", image_url: "/campus/building-2.jpg", category: "Campus" },
+  { title: "Main entrance", image_url: "/campus/entrance-2.jpg", category: "Campus" },
+  { title: "Morning assembly", image_url: "/campus/assembly-2.jpg", category: "Events" },
+  { title: "Classroom moment", image_url: "/campus/classroom-award.jpg", category: "Life" },
+  { title: "Commerce toppers", image_url: "/campus/toppers-poster.jpg", category: "Results" },
+  { title: "Admissions open", image_url: "/campus/admission-poster.jpg", category: "Admissions" },
+  { title: "Saraswati blessing", image_url: "/campus/saraswati.jpg", category: "Culture" },
 ];
 
 const DEFAULT_TOPPERS: Omit<Topper, "id">[] = [
