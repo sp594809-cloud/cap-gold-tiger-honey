@@ -1,9 +1,11 @@
-
 /**
- * Server-only CMS data access. Never import this from route modules directly.
- * Only load via: await import("@/lib/cms.server") inside createServerFn handlers.
+ * Server-only CMS data. Never import from route modules directly —
+ * only via dynamic import inside createServerFn handlers in cms.ts.
+ *
+ * With no DATABASE_URL: pure in-memory / static content (no PGlite).
+ * With DATABASE_URL: Postgres via getSql().
  */
-import { getSql } from "@/lib/db";
+import { getSql, dbSource } from "@/lib/db";
 import { youtubeEmbed } from "@/lib/utils";
 
 export type SettingsMap = Record<string, string>;
@@ -80,7 +82,7 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
     slug: "shining-stars-12th-commerce",
     excerpt:
       "Congratulations to Agarwal Ayushie (PR 99.27), Adheshra Saumya (98.26) and Chauhan Hetaksh (PR 92.43).",
-    body: "A joyful moment honouring dedication, resilience and progress. Agarwal Ayushie scored PR 99.27, Adheshra Saumya scored 98.26, and Chauhan Hetaksh scored PR 92.43 in Class 12 Commerce. The school family congratulates every student who reached higher goals with passion and gratitude.",
+    body: "A joyful moment honouring dedication, resilience and progress. Agarwal Ayushie scored PR 99.27, Adheshra Saumya scored 98.26, and Chauhan Hetaksh scored PR 92.43 in Class 12 Commerce.",
     image_url: "/campus/toppers-poster.jpg",
   },
   {
@@ -88,7 +90,7 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
     slug: "morning-assembly",
     excerpt:
       "Students gather each morning in the courtyard for prayer, news and the day's thought.",
-    body: "The courtyard assembly remains the heartbeat of Mangaldeep Vidyalay. Students sit together for prayer, national thought, and announcements — a daily reminder that discipline and community come before textbooks.",
+    body: "The courtyard assembly remains the heartbeat of Mangaldeep Vidyalay. Students sit together for prayer, national thought, and announcements.",
     image_url: "/campus/assembly-2.jpg",
   },
 ];
@@ -137,7 +139,31 @@ const DEFAULT_TOPPERS: Omit<Topper, "id">[] = [
   },
 ];
 
+const now = () => new Date().toISOString();
+
+/** In-memory store when no database is configured. */
+const memory = {
+  settings: { ...DEFAULT_SETTINGS } as SettingsMap,
+  news: DEFAULT_NEWS.map((n, i) => ({
+    ...n,
+    id: i + 1,
+    published: true,
+    created_at: now(),
+  })) as NewsPost[],
+  gallery: DEFAULT_GALLERY.map((g, i) => ({
+    ...g,
+    id: i + 1,
+    created_at: now(),
+  })) as GalleryItem[],
+  toppers: DEFAULT_TOPPERS.map((t, i) => ({ ...t, id: i + 1 })) as Topper[],
+  inquiries: [] as Inquiry[],
+  nextId: 100,
+};
+
+const useMemory = () => dbSource === "none";
+
 export async function seedIfEmpty() {
+  if (useMemory()) return;
   const sql = await getSql();
   const count = await sql<{ n: number }>`select count(*)::int as n from site_settings`;
   if ((count[0]?.n ?? 0) > 0) return;
@@ -161,6 +187,18 @@ export async function seedIfEmpty() {
 }
 
 export async function loadPublicSite() {
+  if (useMemory()) {
+    const settings = { ...memory.settings };
+    if (settings.video_url) {
+      settings.video_url = youtubeEmbed(settings.video_url) || settings.video_url;
+    }
+    return {
+      settings,
+      news: memory.news.filter((n) => n.published),
+      gallery: [...memory.gallery],
+      toppers: [...memory.toppers],
+    };
+  }
   await seedIfEmpty();
   const sql = await getSql();
   const rows = await sql<{ key: string; value: string }>`select key, value from site_settings`;
@@ -181,6 +219,9 @@ export async function loadPublicSite() {
 }
 
 export async function loadNewsBySlug(slug: string) {
+  if (useMemory()) {
+    return memory.news.find((n) => n.slug === slug) ?? null;
+  }
   await seedIfEmpty();
   const sql = await getSql();
   const rows = await sql<NewsPost>`
@@ -196,12 +237,30 @@ export async function insertInquiry(data: {
   applying_for: string;
   message: string;
 }) {
+  if (useMemory()) {
+    memory.inquiries.unshift({
+      id: memory.nextId++,
+      ...data,
+      created_at: now(),
+    });
+    console.log("[cms] Inquiry (memory only, no DB):", data.name, data.phone);
+    return;
+  }
   const sql = await getSql();
   await sql`insert into inquiries (name, phone, email, applying_for, message)
     values (${data.name}, ${data.phone}, ${data.email}, ${data.applying_for}, ${data.message})`;
 }
 
 export async function loadAdminBundle() {
+  if (useMemory()) {
+    return {
+      settings: { ...memory.settings },
+      news: [...memory.news],
+      gallery: [...memory.gallery],
+      inquiries: [...memory.inquiries],
+      toppers: [...memory.toppers],
+    };
+  }
   await seedIfEmpty();
   const sql = await getSql();
   const rows = await sql<{ key: string; value: string }>`select key, value from site_settings`;
@@ -224,6 +283,10 @@ export async function loadAdminBundle() {
 }
 
 export async function upsertSettings(entries: Record<string, string>) {
+  if (useMemory()) {
+    Object.assign(memory.settings, entries);
+    return;
+  }
   const sql = await getSql();
   for (const [key, value] of Object.entries(entries)) {
     await sql`insert into site_settings (key, value) values (${key}, ${value})
@@ -240,6 +303,19 @@ export async function upsertNews(data: {
   image_url: string;
   published: boolean;
 }) {
+  if (useMemory()) {
+    if (data.id) {
+      const i = memory.news.findIndex((n) => n.id === data.id);
+      if (i >= 0) memory.news[i] = { ...memory.news[i], ...data };
+    } else {
+      memory.news.unshift({
+        id: memory.nextId++,
+        ...data,
+        created_at: now(),
+      });
+    }
+    return;
+  }
   const sql = await getSql();
   if (data.id) {
     await sql`update news_posts set title = ${data.title}, slug = ${data.slug}, excerpt = ${data.excerpt},
@@ -251,22 +327,46 @@ export async function upsertNews(data: {
 }
 
 export async function removeNews(id: number) {
+  if (useMemory()) {
+    memory.news = memory.news.filter((n) => n.id !== id);
+    return;
+  }
   const sql = await getSql();
   await sql`delete from news_posts where id = ${id}`;
 }
 
-export async function insertGalleryItem(data: { title: string; image_url: string; category: string }) {
+export async function insertGalleryItem(data: {
+  title: string;
+  image_url: string;
+  category: string;
+}) {
+  if (useMemory()) {
+    memory.gallery.unshift({
+      id: memory.nextId++,
+      ...data,
+      created_at: now(),
+    });
+    return;
+  }
   const sql = await getSql();
   await sql`insert into gallery_items (title, image_url, category)
     values (${data.title}, ${data.image_url}, ${data.category})`;
 }
 
 export async function removeGalleryItem(id: number) {
+  if (useMemory()) {
+    memory.gallery = memory.gallery.filter((g) => g.id !== id);
+    return;
+  }
   const sql = await getSql();
   await sql`delete from gallery_items where id = ${id}`;
 }
 
 export async function removeInquiry(id: number) {
+  if (useMemory()) {
+    memory.inquiries = memory.inquiries.filter((i) => i.id !== id);
+    return;
+  }
   const sql = await getSql();
   await sql`delete from inquiries where id = ${id}`;
 }
@@ -279,12 +379,20 @@ export async function insertTopper(data: {
   year: string;
   stream: string;
 }) {
+  if (useMemory()) {
+    memory.toppers.push({ id: memory.nextId++, ...data });
+    return;
+  }
   const sql = await getSql();
   await sql`insert into toppers (name, score, class_name, position, year, stream)
     values (${data.name}, ${data.score}, ${data.class_name}, ${data.position}, ${data.year}, ${data.stream})`;
 }
 
 export async function removeTopper(id: number) {
+  if (useMemory()) {
+    memory.toppers = memory.toppers.filter((t) => t.id !== id);
+    return;
+  }
   const sql = await getSql();
   await sql`delete from toppers where id = ${id}`;
 }

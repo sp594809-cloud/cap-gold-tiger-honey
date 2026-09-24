@@ -141,9 +141,13 @@ const grokUserInfoUrl = `${issuerBase}/api/auth/oauth2/userinfo`;
 // SAME DB as app data, including email/password users. Both use the Better Auth
 // schema from `migrations/auth/0001_auth.sql`, copied into `migrations/` when
 // the app turns sign-in on.
+// No DATABASE_URL and no ALLOW_PGLITE: skip embedded DB (static site on Render).
+// Auth will not persist sessions until a real DATABASE_URL is configured.
 const database = databaseUrl
   ? new Pool({ connectionString: databaseUrl })
-  : { dialect: pgliteDialect(() => getPglite()), type: "postgres" as const };
+  : process.env.ALLOW_PGLITE === "1"
+    ? { dialect: pgliteDialect(() => getPglite()), type: "postgres" as const }
+    : undefined;
 
 /** Session token cookie name — also read by the live-preview popup completion page. */
 export const SESSION_TOKEN_COOKIE = "__Host-grok-auth.session_token";

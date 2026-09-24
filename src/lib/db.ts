@@ -1,7 +1,7 @@
 import { pendingMigrations } from "../../scripts/migration-plan.mjs";
 
 /** Which database backend is active. */
-export type DbSource = "neon" | "pglite";
+export type DbSource = "neon" | "pglite" | "none";
 
 // An empty/whitespace DATABASE_URL (an easy misconfig in deploy UIs) must mean
 // "unset" — otherwise production would silently run on the PGLite fallback.
@@ -16,7 +16,13 @@ const databaseUrl =
  * the app has a working database even with nothing configured — the live preview
  * included. Swap in Neon later by just setting `DATABASE_URL`; no code changes.
  */
-export const dbSource: DbSource = databaseUrl ? "neon" : "pglite";
+// No DATABASE_URL = no database at all (static CMS). Skip PGLite on Render
+// so we never look for missing pglite.data files.
+export const dbSource: DbSource = databaseUrl
+  ? "neon"
+  : process.env.ALLOW_PGLITE === "1"
+    ? "pglite"
+    : "none";
 
 /**
  * Minimal shared SQL surface, satisfied by both Neon and PGLite. Both the
@@ -176,7 +182,11 @@ async function createSql(): Promise<Sql> {
         "or a server route loader, never from client code.",
     );
   }
-  return dbSource === "neon" ? createNeonSql() : createPgliteSql();
+  if (dbSource === "neon") return createNeonSql();
+  if (dbSource === "pglite") return createPgliteSql();
+  throw new Error(
+    "No database configured. Set DATABASE_URL, or use the static CMS path (no DB).",
+  );
 }
 
 /**
@@ -229,10 +239,14 @@ export function ensureDbReady(): Promise<void> {
 const globalBoot = globalThis as typeof globalThis & {
   __pgBootstrapPromise__?: Promise<void>;
 };
+// Only auto-bootstrap PGLite when explicitly allowed (local preview).
 if (typeof window === "undefined" && dbSource === "pglite") {
   globalBoot.__pgBootstrapPromise__ ??= ensureDbReady().catch((err) => {
     globalBoot.__pgBootstrapPromise__ = undefined;
     console.error("[db] PGLite bootstrap failed:", err);
     throw err;
   });
+}
+if (typeof window === "undefined" && dbSource === "none") {
+  console.log("[db] No DATABASE_URL — running without a database (static school content).");
 }
