@@ -25,7 +25,7 @@ const QUICK = [
 const LIFE = [
   { title: "Morning assembly", text: "Prayer, news and discipline in the open courtyard.", src: "/campus/assembly-2.jpg" },
   { title: "Classroom care", text: "Recognition, guidance and board-focused teaching.", src: "/campus/classroom-award.jpg" },
-  { title: "Campus gate", text: "A welcoming entrance for students and parents.", src: "/campus/gate-2.jpg" },
+  { title: "Main school gate", text: "મંગલદીપ વિદ્યાલય — the heart of campus in Ranip.", src: "/campus/main-gate.jpg" },
   { title: "School building", text: "Classrooms, labs and open spaces together.", src: "/campus/building-2.jpg" },
   { title: "Student life", text: "Friends, focus and a safe neighbourhood campus.", src: "/campus/entrance-2.jpg" },
   { title: "Values & culture", text: "Learning with respect, tradition and confidence.", src: "/campus/saraswati.jpg" },
@@ -54,11 +54,13 @@ function Home() {
       {/* HERO — Adani full-bleed style */}
       <section className="relative min-h-[58vh] overflow-hidden sm:min-h-[70vh] md:min-h-[78vh]">
         <img
-          src="/campus/assembly-2.jpg"
-          alt="Morning assembly at Mangaldeep Vidyalay"
-          className="absolute inset-0 size-full object-cover"
+          src="/campus/main-gate.jpg"
+          alt="Main gate of Mangaldeep Vidyalay, Ranip"
+          className="absolute inset-0 size-full object-cover object-[center_35%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/80 to-primary-dark/40" />
+        {/* Soft readable overlay — keeps the real campus visible, not muddy */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/88 via-primary-dark/55 to-primary-dark/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/50 via-transparent to-primary-dark/25" />
         <div className="relative mx-auto flex min-h-[58vh] max-w-6xl flex-col justify-center px-4 py-10 sm:min-h-[70vh] sm:py-16 md:min-h-[78vh] md:py-24">
           <p className="inline-flex w-fit items-center rounded-full bg-saffron px-3 py-1 text-xs font-semibold text-white shadow-sm sm:px-4 sm:py-1.5 sm:text-sm sm:font-bold">
             Admissions Open 2026–27

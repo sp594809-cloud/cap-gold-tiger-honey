@@ -96,7 +96,7 @@ const DEFAULT_NEWS: Omit<NewsPost, "id" | "created_at" | "published">[] = [
 ];
 
 const DEFAULT_GALLERY: Omit<GalleryItem, "id" | "created_at">[] = [
-  { title: "School gate", image_url: "/campus/gate-2.jpg", category: "Campus" },
+  { title: "Main school gate", image_url: "/campus/main-gate.jpg", category: "Campus" },
   { title: "Campus building", image_url: "/campus/building-2.jpg", category: "Campus" },
   { title: "Main entrance", image_url: "/campus/entrance-2.jpg", category: "Campus" },
   { title: "Morning assembly", image_url: "/campus/assembly-2.jpg", category: "Events" },
