@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: mangaldeep-vidyalay
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: VITE_AUTH_ENABLED
+        value: "true"
