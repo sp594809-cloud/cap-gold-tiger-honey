@@ -5,7 +5,7 @@ import {
   Clock, MessageCircle,
 } from "lucide-react";
 import { useState } from "react";
-import type { SettingsMap } from "@/lib/cms.server";
+import type { SettingsMap } from "@/lib/cms";
 import { FACEBOOK_PAGE, NAV, YOUTUBE_CHANNEL } from "@/lib/site";
 import { cn, telLink, waLink } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
