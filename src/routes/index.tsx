@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
-import { getPublicSite } from "@/lib/cms.server";
+import { getPublicSite } from "@/lib/cms";
 import { CLASS_BANDS, FACILITIES, UDISE, YOUTUBE_CHANNEL } from "@/lib/site";
 
 export const Route = createFileRoute("/")({

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
-import { getPublicSite } from "@/lib/cms.server";
+import { getPublicSite } from "@/lib/cms";
 import { FACEBOOK_PAGE, UDISE, YOUTUBE_CHANNEL } from "@/lib/site";
 
 export const Route = createFileRoute("/about")({

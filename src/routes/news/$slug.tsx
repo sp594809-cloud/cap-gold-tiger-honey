@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
-import { getNewsBySlug, getPublicSite } from "@/lib/cms.server";
+import { getNewsBySlug, getPublicSite } from "@/lib/cms";
 
 export const Route = createFileRoute("/news/$slug")({
   loader: async ({ params }) => {

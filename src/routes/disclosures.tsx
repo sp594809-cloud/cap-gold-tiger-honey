@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FileText, Shield, Building2, Calendar, Users, Heart } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
-import { getPublicSite } from "@/lib/cms.server";
+import { getPublicSite } from "@/lib/cms";
 import { UDISE } from "@/lib/site";
 
 export const Route = createFileRoute("/disclosures")({

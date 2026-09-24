@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
-import { DEFAULT_SETTINGS, getAdminBundle, saveSettings, type SettingsMap } from "@/lib/cms.server";
+import { DEFAULT_SETTINGS, getAdminBundle, saveSettings, type SettingsMap } from "@/lib/cms";
 
 export const Route = createFileRoute("/admin/settings")({ component: AdminSettings });
 

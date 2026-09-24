@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
-import { deleteNews, getAdminBundle, saveNews, type NewsPost } from "@/lib/cms.server";
+import { deleteNews, getAdminBundle, saveNews, type NewsPost } from "@/lib/cms";
 
 export const Route = createFileRoute("/admin/news")({ component: AdminNews });
 

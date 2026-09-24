@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { deleteInquiry, getAdminBundle, type Inquiry } from "@/lib/cms.server";
+import { deleteInquiry, getAdminBundle, type Inquiry } from "@/lib/cms";
 
 export const Route = createFileRoute("/admin/inquiries")({ component: AdminInquiries });
 

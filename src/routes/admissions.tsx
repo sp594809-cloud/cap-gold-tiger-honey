@@ -4,7 +4,7 @@ import { CheckCircle2, Phone } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
 import { Input, Label, Textarea } from "@/components/ui/input";
-import { getPublicSite, submitInquiry } from "@/lib/cms.server";
+import { getPublicSite, submitInquiry } from "@/lib/cms";
 import { telLink } from "@/lib/utils";
 
 export const Route = createFileRoute("/admissions")({

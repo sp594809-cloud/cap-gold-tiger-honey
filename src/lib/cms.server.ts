@@ -1,6 +1,8 @@
-import { createServerFn } from "@tanstack/react-start";
-import { z } from "zod";
-import { authMiddleware } from "@/lib/auth/middleware";
+
+/**
+ * Server-only CMS data access. Never import this from route modules directly.
+ * Only load via: await import("@/lib/cms.server") inside createServerFn handlers.
+ */
 import { getSql } from "@/lib/db";
 import { youtubeEmbed } from "@/lib/utils";
 
@@ -106,8 +108,6 @@ const DEFAULT_GALLERY: Omit<GalleryItem, "id" | "created_at">[] = [
   { title: "Admission open 2026", image_url: "/campus/admission-poster.jpg", category: "Admissions" },
   { title: "Goddess Saraswati", image_url: "/campus/saraswati.jpg", category: "Culture" },
   { title: "Saraswati blessing", image_url: "/campus/saraswati-2.jpg", category: "Culture" },
-  { title: "Admission notice", image_url: "/campus/admission.jpg", category: "Notices" },
-  { title: "Saraswati blessing", image_url: "/campus/saraswati.jpg", category: "Culture" },
 ];
 
 const DEFAULT_TOPPERS: Omit<Topper, "id">[] = [
@@ -137,7 +137,7 @@ const DEFAULT_TOPPERS: Omit<Topper, "id">[] = [
   },
 ];
 
-async function seedIfEmpty() {
+export async function seedIfEmpty() {
   const sql = await getSql();
   const count = await sql<{ n: number }>`select count(*)::int as n from site_settings`;
   if ((count[0]?.n ?? 0) > 0) return;
@@ -145,14 +145,14 @@ async function seedIfEmpty() {
   for (const [key, value] of Object.entries(DEFAULT_SETTINGS)) {
     await sql`insert into site_settings (key, value) values (${key}, ${value}) on conflict (key) do nothing`;
   }
-  for (const post of DEFAULT_NEWS) {
+  for (const n of DEFAULT_NEWS) {
     await sql`insert into news_posts (title, slug, excerpt, body, image_url, published)
-      values (${post.title}, ${post.slug}, ${post.excerpt}, ${post.body}, ${post.image_url}, true)
+      values (${n.title}, ${n.slug}, ${n.excerpt}, ${n.body}, ${n.image_url}, true)
       on conflict (slug) do nothing`;
   }
-  for (const item of DEFAULT_GALLERY) {
+  for (const g of DEFAULT_GALLERY) {
     await sql`insert into gallery_items (title, image_url, category)
-      values (${item.title}, ${item.image_url}, ${item.category})`;
+      values (${g.title}, ${g.image_url}, ${g.category})`;
   }
   for (const t of DEFAULT_TOPPERS) {
     await sql`insert into toppers (name, score, class_name, position, year, stream)
@@ -160,185 +160,131 @@ async function seedIfEmpty() {
   }
 }
 
-function rowsToSettings(rows: { key: string; value: string }[]): SettingsMap {
-  return { ...DEFAULT_SETTINGS, ...Object.fromEntries(rows.map((r) => [r.key, r.value])) };
-}
-
-export const getPublicSite = createServerFn({ method: "GET" }).handler(async () => {
+export async function loadPublicSite() {
   await seedIfEmpty();
   const sql = await getSql();
-  const settings = await sql<{ key: string; value: string }>`select key, value from site_settings`;
+  const rows = await sql<{ key: string; value: string }>`select key, value from site_settings`;
+  const map: SettingsMap = { ...DEFAULT_SETTINGS };
+  for (const r of rows) map[r.key] = r.value;
+  if (map.video_url) map.video_url = youtubeEmbed(map.video_url) || map.video_url;
+
   const news = await sql<NewsPost>`
     select id, title, slug, excerpt, body, image_url, published, created_at::text as created_at
     from news_posts where published = true order by created_at desc`;
   const gallery = await sql<GalleryItem>`
     select id, title, image_url, category, created_at::text as created_at
-    from gallery_items order by created_at desc`;
+    from gallery_items order by id desc`;
   const toppers = await sql<Topper>`
     select id, name, score, class_name, position, year, stream from toppers order by id`;
-  const map = rowsToSettings(settings);
-  map.video_url = youtubeEmbed(map.video_url);
+
   return { settings: map, news, gallery, toppers };
-});
+}
 
-export const getNewsBySlug = createServerFn({ method: "GET" })
-  .validator((slug: string) => slug)
-  .handler(async ({ data: slug }) => {
-    await seedIfEmpty();
-    const sql = await getSql();
-    const rows = await sql<NewsPost>`
-      select id, title, slug, excerpt, body, image_url, published, created_at::text as created_at
-      from news_posts where slug = ${slug} and published = true limit 1`;
-    return rows[0] ?? null;
-  });
+export async function loadNewsBySlug(slug: string) {
+  await seedIfEmpty();
+  const sql = await getSql();
+  const rows = await sql<NewsPost>`
+    select id, title, slug, excerpt, body, image_url, published, created_at::text as created_at
+    from news_posts where slug = ${slug} limit 1`;
+  return rows[0] ?? null;
+}
 
-export const submitInquiry = createServerFn({ method: "POST" })
-  .validator(
-    z.object({
-      name: z.string().min(2).max(80),
-      phone: z.string().min(7).max(20),
-      email: z.string().max(120).optional(),
-      applying_for: z.string().max(60).optional(),
-      message: z.string().max(800).optional(),
-    }),
-  )
-  .handler(async ({ data }) => {
-    const sql = await getSql();
-    await sql`insert into inquiries (name, phone, email, applying_for, message)
-      values (${data.name.trim()}, ${data.phone.trim()}, ${data.email?.trim() ?? ""}, ${data.applying_for?.trim() ?? ""}, ${data.message?.trim() ?? ""})`;
-    return { ok: true as const };
-  });
+export async function insertInquiry(data: {
+  name: string;
+  phone: string;
+  email: string;
+  applying_for: string;
+  message: string;
+}) {
+  const sql = await getSql();
+  await sql`insert into inquiries (name, phone, email, applying_for, message)
+    values (${data.name}, ${data.phone}, ${data.email}, ${data.applying_for}, ${data.message})`;
+}
 
-export const getAdminBundle = createServerFn({ method: "GET" })
-  .middleware([authMiddleware])
-  .handler(async () => {
-    await seedIfEmpty();
-    const sql = await getSql();
-    const settings = await sql<{ key: string; value: string }>`select key, value from site_settings`;
-    const news = await sql<NewsPost>`
-      select id, title, slug, excerpt, body, image_url, published, created_at::text as created_at
-      from news_posts order by created_at desc`;
-    const gallery = await sql<GalleryItem>`
-      select id, title, image_url, category, created_at::text as created_at
-      from gallery_items order by created_at desc`;
-    const inquiries = await sql<Inquiry>`
-      select id, name, phone, email, applying_for, message, created_at::text as created_at
-      from inquiries order by created_at desc`;
-    const toppers = await sql<Topper>`
-      select id, name, score, class_name, position, year, stream from toppers order by id`;
-    return {
-      settings: rowsToSettings(settings),
-      news,
-      gallery,
-      inquiries,
-      toppers,
-    };
-  });
+export async function loadAdminBundle() {
+  await seedIfEmpty();
+  const sql = await getSql();
+  const rows = await sql<{ key: string; value: string }>`select key, value from site_settings`;
+  const map: SettingsMap = { ...DEFAULT_SETTINGS };
+  for (const r of rows) map[r.key] = r.value;
 
-export const saveSettings = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator(z.record(z.string(), z.string()))
-  .handler(async ({ data }) => {
-    const sql = await getSql();
-    for (const [key, value] of Object.entries(data)) {
-      await sql`insert into site_settings (key, value) values (${key}, ${value})
-        on conflict (key) do update set value = excluded.value`;
-    }
-    return { ok: true as const };
-  });
+  const news = await sql<NewsPost>`
+    select id, title, slug, excerpt, body, image_url, published, created_at::text as created_at
+    from news_posts order by created_at desc`;
+  const gallery = await sql<GalleryItem>`
+    select id, title, image_url, category, created_at::text as created_at
+    from gallery_items order by id desc`;
+  const inquiries = await sql<Inquiry>`
+    select id, name, phone, email, applying_for, message, created_at::text as created_at
+    from inquiries order by created_at desc`;
+  const toppers = await sql<Topper>`
+    select id, name, score, class_name, position, year, stream from toppers order by id`;
 
-const newsInput = z.object({
-  id: z.number().optional(),
-  title: z.string().min(3),
-  slug: z.string().min(2),
-  excerpt: z.string(),
-  body: z.string(),
-  image_url: z.string(),
-  published: z.boolean(),
-});
+  return { settings: map, news, gallery, inquiries, toppers };
+}
 
-export const saveNews = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator(newsInput)
-  .handler(async ({ data }) => {
-    const sql = await getSql();
-    if (data.id) {
-      await sql`update news_posts set title = ${data.title}, slug = ${data.slug}, excerpt = ${data.excerpt},
-        body = ${data.body}, image_url = ${data.image_url}, published = ${data.published} where id = ${data.id}`;
-    } else {
-      await sql`insert into news_posts (title, slug, excerpt, body, image_url, published)
-        values (${data.title}, ${data.slug}, ${data.excerpt}, ${data.body}, ${data.image_url}, ${data.published})`;
-    }
-    return { ok: true as const };
-  });
+export async function upsertSettings(entries: Record<string, string>) {
+  const sql = await getSql();
+  for (const [key, value] of Object.entries(entries)) {
+    await sql`insert into site_settings (key, value) values (${key}, ${value})
+      on conflict (key) do update set value = excluded.value`;
+  }
+}
 
-export const deleteNews = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator((id: number) => id)
-  .handler(async ({ data: id }) => {
-    const sql = await getSql();
-    await sql`delete from news_posts where id = ${id}`;
-    return { ok: true as const };
-  });
+export async function upsertNews(data: {
+  id?: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  image_url: string;
+  published: boolean;
+}) {
+  const sql = await getSql();
+  if (data.id) {
+    await sql`update news_posts set title = ${data.title}, slug = ${data.slug}, excerpt = ${data.excerpt},
+      body = ${data.body}, image_url = ${data.image_url}, published = ${data.published} where id = ${data.id}`;
+  } else {
+    await sql`insert into news_posts (title, slug, excerpt, body, image_url, published)
+      values (${data.title}, ${data.slug}, ${data.excerpt}, ${data.body}, ${data.image_url}, ${data.published})`;
+  }
+}
 
-export const saveGalleryItem = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator(
-    z.object({
-      title: z.string().min(2),
-      image_url: z.string().min(2),
-      category: z.string().min(2),
-    }),
-  )
-  .handler(async ({ data }) => {
-    const sql = await getSql();
-    await sql`insert into gallery_items (title, image_url, category)
-      values (${data.title}, ${data.image_url}, ${data.category})`;
-    return { ok: true as const };
-  });
+export async function removeNews(id: number) {
+  const sql = await getSql();
+  await sql`delete from news_posts where id = ${id}`;
+}
 
-export const deleteGalleryItem = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator((id: number) => id)
-  .handler(async ({ data: id }) => {
-    const sql = await getSql();
-    await sql`delete from gallery_items where id = ${id}`;
-    return { ok: true as const };
-  });
+export async function insertGalleryItem(data: { title: string; image_url: string; category: string }) {
+  const sql = await getSql();
+  await sql`insert into gallery_items (title, image_url, category)
+    values (${data.title}, ${data.image_url}, ${data.category})`;
+}
 
-export const deleteInquiry = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator((id: number) => id)
-  .handler(async ({ data: id }) => {
-    const sql = await getSql();
-    await sql`delete from inquiries where id = ${id}`;
-    return { ok: true as const };
-  });
+export async function removeGalleryItem(id: number) {
+  const sql = await getSql();
+  await sql`delete from gallery_items where id = ${id}`;
+}
 
-export const saveTopper = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator(
-    z.object({
-      name: z.string().min(2),
-      score: z.string().min(1),
-      class_name: z.string().min(1),
-      position: z.string().min(1),
-      year: z.string().min(1),
-      stream: z.string(),
-    }),
-  )
-  .handler(async ({ data }) => {
-    const sql = await getSql();
-    await sql`insert into toppers (name, score, class_name, position, year, stream)
-      values (${data.name}, ${data.score}, ${data.class_name}, ${data.position}, ${data.year}, ${data.stream})`;
-    return { ok: true as const };
-  });
+export async function removeInquiry(id: number) {
+  const sql = await getSql();
+  await sql`delete from inquiries where id = ${id}`;
+}
 
-export const deleteTopper = createServerFn({ method: "POST" })
-  .middleware([authMiddleware])
-  .validator((id: number) => id)
-  .handler(async ({ data: id }) => {
-    const sql = await getSql();
-    await sql`delete from toppers where id = ${id}`;
-    return { ok: true as const };
-  });
+export async function insertTopper(data: {
+  name: string;
+  score: string;
+  class_name: string;
+  position: string;
+  year: string;
+  stream: string;
+}) {
+  const sql = await getSql();
+  await sql`insert into toppers (name, score, class_name, position, year, stream)
+    values (${data.name}, ${data.score}, ${data.class_name}, ${data.position}, ${data.year}, ${data.stream})`;
+}
+
+export async function removeTopper(id: number) {
+  const sql = await getSql();
+  await sql`delete from toppers where id = ${id}`;
+}

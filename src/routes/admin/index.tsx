@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { getAdminBundle } from "@/lib/cms.server";
+import { getAdminBundle } from "@/lib/cms";
 
 export const Route = createFileRoute("/admin/")({ component: AdminHome });
 

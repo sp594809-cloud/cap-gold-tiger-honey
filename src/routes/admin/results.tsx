@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
-import { deleteTopper, getAdminBundle, saveTopper, type Topper } from "@/lib/cms.server";
+import { deleteTopper, getAdminBundle, saveTopper, type Topper } from "@/lib/cms";
 
 export const Route = createFileRoute("/admin/results")({ component: AdminResults });
 

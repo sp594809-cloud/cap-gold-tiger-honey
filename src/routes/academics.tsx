@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site-shell";
-import { getPublicSite } from "@/lib/cms.server";
+import { getPublicSite } from "@/lib/cms";
 import { CLASS_BANDS, FACILITIES } from "@/lib/site";
 
 export const Route = createFileRoute("/academics")({

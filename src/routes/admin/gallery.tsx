@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
-import { deleteGalleryItem, getAdminBundle, saveGalleryItem, type GalleryItem } from "@/lib/cms.server";
+import { deleteGalleryItem, getAdminBundle, saveGalleryItem, type GalleryItem } from "@/lib/cms";
 import { CAMPUS_IMAGES } from "@/lib/site";
 
 export const Route = createFileRoute("/admin/gallery")({ component: AdminGallery });
