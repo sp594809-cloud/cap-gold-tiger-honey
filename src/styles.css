@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f4efe4;
+  --color-paper: #fbf8f1;
+  --color-surface: #ffffff;
+  --color-ink: #1a1916;
+  --color-muted: #5e5a52;
+  --color-navy: #1e3a4c;
+  --color-navy-deep: #152a38;
+  --color-teal: #3d6b7a;
+  --color-accent: #3d6b7a;
+  --color-accent-fg: #fbf8f1;
+  --color-border: #e2d9c8;
+  --color-line: #d5ccba;
+  --color-danger: #9f2d2d;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

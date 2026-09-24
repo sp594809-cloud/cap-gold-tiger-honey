@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Shyam International School | Mangaldeep Vidyalay, Ranip",
+      "hasCanvas": false,
+      "bodyTextLen": 3721,
+      "bodyTextHash": "51a82a0c1423506586aab737c0b9918de94961b8348b09e4b889ee7bd09342a2",
+      "bodyTextPrefix": "Opp. Swaminarayan Park, Opp. Vishwakarma Mandir, Ranip–Vadaj Roa",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Shyam International School | Mangaldeep Vidyalay, Ranip",
+      "hasCanvas": false,
+      "bodyTextLen": 3654,
+      "bodyTextHash": "9a864baf8e6d355cc82886cd9d886f9eafcff8336c23843b01bf7f7bc44b1507",
+      "bodyTextPrefix": "Opp. Swaminarayan Park, Opp. Vishwakarma Mandir, Ranip–Vadaj Roa",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
