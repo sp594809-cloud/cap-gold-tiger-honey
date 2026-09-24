@@ -118,7 +118,7 @@ function Admissions() {
               <Label htmlFor="message">Message</Label>
               <Textarea id="message" name="message" className="mt-1.5" placeholder="Any question for the office…" />
             </div>
-            <Button type="submit" disabled={pending} className="w-full" size="lg" variant="accent">
+            <Button type="submit" disabled={pending} className="w-full" size="lg" variant="accent" className="rounded-full">
               {pending ? "Sending…" : "Submit inquiry"}
             </Button>
             {status === "ok" ? (

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight, BookOpen, CheckCircle2, Users, FlaskConical, Award,
-  ClipboardList, Image, Phone, Newspaper, GraduationCap, Star,
+  ClipboardList, Image, Phone, Newspaper, Star, Shield, Laptop, Library,
 } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
@@ -14,25 +14,34 @@ export const Route = createFileRoute("/")({
 });
 
 const QUICK = [
-  { to: "/admissions", label: "Admissions", icon: ClipboardList, color: "bg-gold text-ink" },
-  { to: "/academics", label: "Academics", icon: BookOpen, color: "bg-primary text-white" },
-  { to: "/results", label: "Results", icon: Award, color: "bg-green text-white" },
-  { to: "/news", label: "Notices", icon: Newspaper, color: "bg-primary-dark text-white" },
-  { to: "/gallery", label: "Gallery", icon: Image, color: "bg-primary text-white" },
-  { to: "/contact", label: "Contact", icon: Phone, color: "bg-green text-white" },
+  { to: "/admissions", label: "Admissions", icon: ClipboardList, tone: "bg-saffron text-white" },
+  { to: "/academics", label: "Academics", icon: BookOpen, tone: "bg-primary text-white" },
+  { to: "/results", label: "Results", icon: Award, tone: "bg-gold text-white" },
+  { to: "/news", label: "Notices", icon: Newspaper, tone: "bg-primary-dark text-white" },
+  { to: "/gallery", label: "Gallery", icon: Image, tone: "bg-primary text-white" },
+  { to: "/contact", label: "Contact", icon: Phone, tone: "bg-green text-white" },
 ] as const;
+
+const LIFE = [
+  { title: "Morning assembly", text: "Prayer, news and discipline in the open courtyard.", src: "/campus/assembly-2.jpg" },
+  { title: "Classroom care", text: "Recognition, guidance and board-focused teaching.", src: "/campus/classroom-award.jpg" },
+  { title: "Campus gate", text: "A welcoming entrance for students and parents.", src: "/campus/gate-2.jpg" },
+  { title: "School building", text: "Classrooms, labs and open spaces together.", src: "/campus/building-2.jpg" },
+  { title: "Student life", text: "Friends, focus and a safe neighbourhood campus.", src: "/campus/entrance-2.jpg" },
+  { title: "Values & culture", text: "Learning with respect, tradition and confidence.", src: "/campus/saraswati.jpg" },
+];
 
 const TESTIMONIALS = [
   {
-    quote: "My child improved a lot in Class 11 Science. Weekly tests and personal attention made the difference.",
+    quote: "Weekly tests and personal attention helped my child in Class 11 Science. Teachers know every student.",
     name: "Parent of Class 12 Science student",
   },
   {
-    quote: "Affordable fees and serious board preparation. We chose Mangaldeep for Commerce and got PR 99+ results in the batch.",
+    quote: "Affordable fees with serious board preparation. Commerce batch results speak for themselves.",
     name: "Parent of Commerce topper",
   },
   {
-    quote: "Safe campus, CCTV, and teachers who know every student. That matters more than fancy buildings.",
+    quote: "Safe campus, CCTV, and a school that feels like family in Ranip. That matters more than fancy ads.",
     name: "Parent, Ranip",
   },
 ];
@@ -42,253 +51,275 @@ function Home() {
 
   return (
     <SiteShell settings={settings}>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-primary-dark">
+      {/* HERO — Adani full-bleed style */}
+      <section className="relative min-h-[70vh] overflow-hidden md:min-h-[78vh]">
         <img
           src="/campus/assembly-2.jpg"
-          alt="Students at morning assembly"
-          className="absolute inset-0 size-full object-cover opacity-35"
+          alt="Morning assembly at Mangaldeep Vidyalay"
+          className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark via-primary-dark/90 to-primary-dark/55" />
-        <div className="relative mx-auto max-w-6xl px-4 py-12 md:py-20">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold px-3 py-1 text-sm font-bold text-ink">
-              Admissions Open 2026–27
-            </span>
-            <h1 className="mt-4 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-              {settings.gujarati_name}
-            </h1>
-            <p className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-              Shyam International School
-              <span className="font-normal text-white/80"> · Mangaldeep Campus</span>
-            </p>
-            <p className="mt-4 text-base leading-relaxed text-white/90 sm:text-lg">
-              One campus, two names: <strong className="text-gold">Mangaldeep Vidyalay</strong> (since 1987)
-              and <strong className="text-white">Shyam International School</strong>. GSEB · Pre-Primary to Class 12
-              Science &amp; Commerce · {settings.tagline}.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-gold text-base font-bold text-ink hover:bg-gold/90">
-                <Link to="/admissions">Apply Now</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white/50 bg-white/10 text-base font-semibold text-white hover:bg-white/20">
-                <Link to="/gallery">Campus photos</Link>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary-dark/80 to-primary-dark/40" />
+        <div className="relative mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-4 py-16 md:min-h-[78vh] md:py-24">
+          <p className="inline-flex w-fit items-center rounded-full bg-saffron px-4 py-1.5 text-sm font-bold text-white shadow-md">
+            Admissions Open 2026–27
+          </p>
+          <h1 className="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl">
+            {settings.gujarati_name}
+          </h1>
+          <p className="mt-3 text-xl font-semibold text-white/95 sm:text-2xl">
+            Shyam International School
+            <span className="font-medium text-white/75"> · Mangaldeep Campus</span>
+          </p>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
+            A trusted Ranip school since <strong className="text-saffron-soft">1987</strong>. GSEB · Pre-Primary to Class 12
+            · Science &amp; Commerce. {settings.tagline}.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg" className="rounded-full bg-saffron px-8 text-base font-bold text-white shadow-lg hover:bg-saffron/90">
+              <Link to="/admissions">Start Your Journey</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full border-2 border-white/60 bg-white/10 text-base font-semibold text-white hover:bg-white/20">
+              <Link to="/gallery">View Campus</Link>
+            </Button>
+          </div>
+          <p className="mt-6 text-sm text-white/55">UDISE {UDISE} · Opp. Swaminarayan Park, Ranip</p>
+        </div>
+      </section>
+
+      {/* Quick links — GIIS/Podar parent tasks */}
+      <section className="relative z-10 -mt-8 px-4">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {QUICK.map((q) => (
+            <Link
+              key={q.to}
+              to={q.to}
+              className={`flex flex-col items-center gap-2 rounded-2xl px-3 py-5 text-center shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl ${q.tone}`}
+            >
+              <q.icon className="size-7" />
+              <span className="text-sm font-bold">{q.label}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Big stats — Adani / GIIS numbers band */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {[
+            { value: "1987", label: "Year established", icon: Award },
+            { value: "Pre–12", label: "All class levels", icon: Users },
+            { value: "~400", label: "Science students / year", icon: FlaskConical },
+            { value: "99.27", label: "Top Commerce PR", icon: Star },
+          ].map((s) => (
+            <div key={s.label} className="rounded-3xl border border-line bg-paper p-6 text-center shadow-sm">
+              <s.icon className="mx-auto size-8 text-primary" />
+              <p className="mt-3 text-3xl font-extrabold text-primary-dark md:text-4xl">{s.value}</p>
+              <p className="mt-1 text-sm font-medium text-muted">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Why us — Adani “Who We Are” */}
+      <section className="bg-cream py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            <div>
+              <p className="text-sm font-bold tracking-widest text-saffron uppercase">Who we are</p>
+              <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">
+                Why families choose Mangaldeep
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-muted">
+                {settings.about}
+              </p>
+              <div className="mt-5 rounded-2xl border border-primary/15 bg-paper p-5 text-sm leading-relaxed text-ink shadow-sm">
+                <strong className="text-primary-dark">One campus, two names.</strong> Official records list{" "}
+                <em>Mangaldeep Vidhyalaya</em> (UDISE {UDISE}). Day-to-day branding for Pre-Primary to 12 also uses{" "}
+                <em>Shyam International School (Mangaldeep Campus)</em> — same teachers, same address in Ranip.
+              </div>
+              <ul className="mt-6 space-y-3">
+                {[
+                  "Weekly tests & board-style papers",
+                  "CCTV-covered safe campus",
+                  "Library, computer lab & science coaching",
+                  "Best education in least fees",
+                ].map((t) => (
+                  <li key={t} className="flex items-center gap-3 text-base font-medium text-ink">
+                    <CheckCircle2 className="size-5 shrink-0 text-green" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild className="mt-6 rounded-full" size="lg">
+                <Link to="/about">
+                  Learn more about us <ArrowRight className="size-4" />
+                </Link>
               </Button>
             </div>
-            <p className="mt-4 text-sm text-white/60">UDISE {UDISE} · Ranip, Ahmedabad</p>
+            <div className="grid grid-cols-2 gap-3">
+              <img src="/campus/building.jpg" alt="Building" className="h-48 w-full rounded-3xl object-cover shadow-md md:h-56" />
+              <img src="/campus/assembly.jpg" alt="Assembly" className="mt-8 h-48 w-full rounded-3xl object-cover shadow-md md:h-56" />
+              <img src="/campus/classroom.jpg" alt="Classroom" className="h-48 w-full rounded-3xl object-cover shadow-md md:h-56" />
+              <img src="/campus/entrance.jpg" alt="Entrance" className="mt-8 h-48 w-full rounded-3xl object-cover shadow-md md:h-56" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Quick-access tiles */}
-      <section className="border-b border-line bg-paper">
-        <div className="mx-auto max-w-6xl px-4 py-6">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {QUICK.map((q) => (
-              <Link
-                key={q.to}
-                to={q.to}
-                className={`flex flex-col items-center gap-2 rounded-2xl px-3 py-4 text-center shadow-sm transition hover:scale-[1.02] hover:shadow-md ${q.color}`}
-              >
-                <q.icon className="size-7" />
-                <span className="text-sm font-bold">{q.label}</span>
-              </Link>
+      {/* Curriculum bands — Adani grade cards */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <p className="text-sm font-bold tracking-widest text-saffron uppercase">Learning</p>
+        <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">Curriculum pathway</h2>
+        <p className="mt-2 max-w-2xl text-muted">From first steps to board exams — clear stages on one campus.</p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CLASS_BANDS.map((c) => (
+            <div
+              key={c.name}
+              className="group rounded-3xl border border-line bg-paper p-6 shadow-sm transition hover:border-primary/30 hover:shadow-md"
+            >
+              <div className="mb-3 grid size-12 place-items-center rounded-2xl bg-primary-light text-primary">
+                <BookOpen className="size-6" />
+              </div>
+              <h3 className="text-lg font-bold text-primary-dark">{c.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{c.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Facilities highlights — Podar key highlights */}
+      <section className="bg-primary-dark py-16 text-white">
+        <div className="mx-auto max-w-6xl px-4">
+          <p className="text-sm font-bold tracking-widest text-saffron-soft uppercase">Campus</p>
+          <h2 className="mt-2 text-3xl font-extrabold md:text-4xl">Key highlights</h2>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { icon: Library, title: "Library & book bank", text: "Thousands of titles for board and competitive study." },
+              { icon: Laptop, title: "Computer & ICT lab", text: "Desktops, internet and digital class support." },
+              { icon: FlaskConical, title: "Science coaching", text: "~400 students prepare science each year." },
+              { icon: Award, title: "Commerce excellence", text: "Recent toppers with PR 99.27 in Class 12." },
+              { icon: Shield, title: "Safe campus", text: "CCTV, compound wall, medical check-ups." },
+              { icon: Users, title: "Courtyard assembly", text: "Daily prayer and announcements together." },
+            ].map((f) => (
+              <div key={f.title} className="rounded-3xl bg-white/10 p-6 backdrop-blur-sm">
+                <f.icon className="size-8 text-saffron-soft" />
+                <h3 className="mt-4 text-lg font-bold">{f.title}</h3>
+                <p className="mt-2 text-sm text-white/80">{f.text}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-beige">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 py-8 md:grid-cols-4">
-          {[
-            { icon: GraduationCap, value: "Since 1987", label: "Years of teaching" },
-            { icon: Users, value: "Pre-Pri → 12", label: "All class levels" },
-            { icon: FlaskConical, value: "~400", label: "Science students / year" },
-            { icon: Award, value: "PR 99.27", label: "Top Commerce 2024–25" },
-          ].map((s) => (
-            <div key={s.label} className="flex items-center gap-3 rounded-2xl bg-paper px-4 py-4 shadow-sm">
-              <s.icon className="size-9 shrink-0 text-primary" />
-              <div>
-                <p className="text-lg font-bold text-primary-dark sm:text-xl">{s.value}</p>
-                <p className="text-xs text-muted sm:text-sm">{s.label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Identity + about */}
-      <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="grid gap-10 md:grid-cols-2 md:items-center">
-          <div>
-            <p className="text-sm font-bold tracking-wide text-primary uppercase">Who we are</p>
-            <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl">
-              Mangaldeep Vidyalay &amp; Shyam International School
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted">
-              {settings.about}
-            </p>
-            <p className="mt-4 rounded-xl border border-primary/20 bg-primary-light p-4 text-sm leading-relaxed text-ink">
-              <strong>Same campus, same team.</strong> Official records list{" "}
-              <em>Mangaldeep Vidhyalaya</em> (UDISE {UDISE}). Day-to-day branding for Pre-Primary to 12
-              also uses <em>Shyam International School (Mangaldeep Campus)</em> — one school family in Ranip.
-            </p>
-            <ul className="mt-5 space-y-2">
-              {["Weekly tests & board-style papers", "CCTV & safe campus", "Library, computer lab, science coaching", "Best education in least fees"].map(
-                (t) => (
-                  <li key={t} className="flex items-center gap-2 text-base text-ink">
-                    <CheckCircle2 className="size-5 shrink-0 text-green" />
-                    {t}
-                  </li>
-                ),
-              )}
-            </ul>
-            <Button asChild variant="link" className="mt-4 px-0 text-base font-semibold text-primary">
-              <Link to="/about">
-                Full school story <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <img src="/campus/gate-2.jpg" alt="Main gate" className="h-40 w-full rounded-2xl object-cover shadow-md sm:h-48" />
-            <img src="/campus/building-2.jpg" alt="Building" className="mt-6 h-40 w-full rounded-2xl object-cover shadow-md sm:h-48" />
-            <img src="/campus/entrance-2.jpg" alt="Entrance" className="h-40 w-full rounded-2xl object-cover shadow-md sm:h-48" />
-            <img src="/campus/classroom-award.jpg" alt="Classroom" className="mt-6 h-40 w-full rounded-2xl object-cover shadow-md sm:h-48" />
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FACILITIES.map((f) => (
-            <div key={f.title} className="rounded-2xl border border-line bg-paper p-5 shadow-sm">
-              <p className="text-base font-bold text-primary-dark">{f.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{f.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Toppers */}
-      <section className="bg-gold-soft py-12 md:py-16">
+      {/* Toppers — SSIS brightening stars */}
+      <section className="bg-saffron-soft py-16">
         <div className="mx-auto max-w-6xl px-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold tracking-wide text-gold uppercase">Results</p>
-              <h2 className="mt-1 text-2xl font-bold text-primary-dark sm:text-3xl">
-                Class 12 Commerce toppers
-              </h2>
+              <p className="text-sm font-bold tracking-widest text-saffron uppercase">Results</p>
+              <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">Our shining stars</h2>
             </div>
-            <Link to="/results" className="text-base font-bold text-primary hover:underline">
+            <Link to="/results" className="font-bold text-primary hover:underline">
               All results →
             </Link>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
             {toppers.map((t, i) => (
-              <article key={t.id} className="overflow-hidden rounded-2xl bg-paper shadow-md">
-                <div className="bg-primary px-4 py-2 text-center text-sm font-bold text-white">
+              <article key={t.id} className="overflow-hidden rounded-3xl bg-paper shadow-lg">
+                <div className="bg-gradient-to-r from-primary to-primary-dark px-5 py-3 text-center text-sm font-bold text-white">
                   {t.position} · {t.year}
                 </div>
-                <div className="p-6 text-center">
-                  <div className="mx-auto mb-3 grid size-14 place-items-center rounded-full bg-gold text-xl font-bold text-ink">
+                <div className="p-8 text-center">
+                  <div className="mx-auto mb-4 grid size-16 place-items-center rounded-full bg-saffron text-2xl font-extrabold text-white shadow-md">
                     {i + 1}
                   </div>
-                  <h3 className="text-lg font-bold text-primary-dark">{t.name}</h3>
-                  <p className="mt-2 text-3xl font-bold text-gold">{t.score}</p>
-                  <p className="mt-1 text-sm text-muted">{t.class_name}</p>
+                  <h3 className="text-xl font-extrabold text-primary-dark">{t.name}</h3>
+                  <p className="mt-3 text-4xl font-extrabold text-saffron">{t.score}</p>
+                  <p className="mt-2 text-sm font-medium text-muted">{t.class_name}</p>
                 </div>
               </article>
             ))}
           </div>
-          <div className="mt-6 overflow-hidden rounded-2xl border border-line shadow-md">
+          <div className="mt-8 overflow-hidden rounded-3xl border border-line shadow-md">
             <img src="/campus/toppers-poster.jpg" alt="Toppers poster" className="w-full object-cover" />
           </div>
         </div>
       </section>
 
-      {/* Classes */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="text-2xl font-bold text-primary-dark sm:text-3xl">What we teach</h2>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {CLASS_BANDS.map((c) => (
-            <div key={c.name} className="rounded-2xl border border-line bg-paper p-5 shadow-sm">
-              <p className="font-bold text-primary">{c.name}</p>
-              <p className="mt-1 text-sm text-muted">{c.detail}</p>
-            </div>
+      {/* Life at school — Adani photo cards */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <p className="text-sm font-bold tracking-widest text-saffron uppercase">School life</p>
+        <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">A place to grow</h2>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {LIFE.map((card) => (
+            <article key={card.title} className="group overflow-hidden rounded-3xl border border-line bg-paper shadow-sm transition hover:shadow-lg">
+              <div className="overflow-hidden">
+                <img
+                  src={card.src}
+                  alt={card.title}
+                  className="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-primary-dark">{card.title}</h3>
+                <p className="mt-2 text-sm text-muted">{card.text}</p>
+              </div>
+            </article>
           ))}
         </div>
-      </section>
-
-      {/* Activity photo cards */}
-      <section className="border-t border-line bg-paper py-12">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="text-2xl font-bold text-primary-dark sm:text-3xl">School life</h2>
-            <Link to="/gallery" className="text-base font-bold text-primary hover:underline">
-              Gallery →
-            </Link>
-          </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { src: "/campus/assembly-2.jpg", title: "Morning assembly", text: "Prayer, news and daily discipline in the courtyard." },
-              { src: "/campus/classroom-award.jpg", title: "Classroom moments", text: "Recognition and encouragement every day." },
-              { src: "/campus/entrance-2.jpg", title: "Campus entrance", text: "A welcoming gate for students and parents." },
-              { src: "/campus/building.jpg", title: "School building", text: "Classrooms, labs and open spaces together." },
-              { src: "/campus/admission-poster.jpg", title: "Admissions open", text: "Pre-Primary to 12 — Science & Commerce." },
-              { src: "/campus/saraswati.jpg", title: "Values & culture", text: "Learning with respect and tradition." },
-            ].map((card) => (
-              <article key={card.title} className="overflow-hidden rounded-2xl border border-line bg-bg shadow-sm">
-                <img src={card.src} alt={card.title} className="h-44 w-full object-cover" loading="lazy" />
-                <div className="p-4">
-                  <h3 className="font-bold text-primary-dark">{card.title}</h3>
-                  <p className="mt-1 text-sm text-muted">{card.text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div className="mt-8 text-center">
+          <Button asChild variant="outline" size="lg" className="rounded-full border-primary text-primary">
+            <Link to="/gallery">View all photos</Link>
+          </Button>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-primary-light py-12">
+      {/* Testimonials — GIIS parents */}
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl font-bold text-primary-dark sm:text-3xl">What parents say</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <p className="text-sm font-bold tracking-widest text-saffron uppercase">Parents</p>
+          <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">What families say</h2>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
-              <blockquote key={t.name} className="rounded-2xl bg-paper p-5 shadow-sm">
-                <div className="mb-2 flex gap-0.5 text-gold">
+              <blockquote key={t.name} className="rounded-3xl bg-paper p-6 shadow-md">
+                <div className="mb-3 flex gap-1 text-gold">
                   {[1, 2, 3, 4, 5].map((n) => (
                     <Star key={n} className="size-4 fill-gold" />
                   ))}
                 </div>
                 <p className="text-base leading-relaxed text-ink">&ldquo;{t.quote}&rdquo;</p>
-                <footer className="mt-3 text-sm font-semibold text-muted">— {t.name}</footer>
+                <footer className="mt-4 text-sm font-bold text-muted">— {t.name}</footer>
               </blockquote>
             ))}
           </div>
         </div>
       </section>
 
-      {/* News */}
-      <section className="mx-auto max-w-6xl px-4 py-12">
-        <div className="flex items-end justify-between">
-          <h2 className="text-2xl font-bold text-primary-dark sm:text-3xl">Notices &amp; news</h2>
-          <Link to="/news" className="text-base font-bold text-primary hover:underline">
-            All news →
+      {/* News — Adani stories */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-bold tracking-widest text-saffron uppercase">Stories</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-primary-dark md:text-4xl">Events &amp; notices</h2>
+          </div>
+          <Link to="/news" className="font-bold text-primary hover:underline">
+            View all →
           </Link>
         </div>
-        <div className="mt-6 grid gap-5 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {news.slice(0, 3).map((n) => (
             <Link
               key={n.id}
               to="/news/$slug"
               params={{ slug: n.slug }}
-              className="overflow-hidden rounded-2xl border border-line bg-paper shadow-sm transition hover:shadow-md"
+              className="group overflow-hidden rounded-3xl border border-line bg-paper shadow-sm transition hover:shadow-lg"
             >
               {n.image_url ? (
-                <img src={n.image_url} alt="" className="h-40 w-full object-cover" />
+                <img src={n.image_url} alt="" className="h-48 w-full object-cover transition duration-500 group-hover:scale-105" />
               ) : null}
-              <div className="p-4">
-                <h3 className="font-bold text-primary-dark">{n.title}</h3>
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-primary-dark group-hover:text-primary">{n.title}</h3>
                 <p className="mt-2 line-clamp-3 text-sm text-muted">{n.excerpt}</p>
               </div>
             </Link>
@@ -296,48 +327,46 @@ function Home() {
         </div>
       </section>
 
-      {/* Video lower on page */}
-      <section className="border-t border-line bg-beige py-12">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 md:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl border border-line bg-primary-dark shadow-md">
+      {/* Video lower — Adani style */}
+      <section className="bg-primary-dark py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 md:grid-cols-2">
+          <div className="overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
             <iframe
-              title="School activities"
+              title="Campus film"
               src={settings.video_url}
               className="aspect-video w-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>
-          <div>
-            <p className="text-sm font-bold tracking-wide text-primary uppercase">Campus film</p>
-            <h2 className="mt-2 text-2xl font-bold text-primary-dark sm:text-3xl">
-              See school life on video
-            </h2>
-            <p className="mt-3 text-base text-muted">
-              Assemblies, classrooms and daily life at Mangaldeep Campus — from our official YouTube channel.
+          <div className="text-white">
+            <p className="text-sm font-bold tracking-widest text-saffron-soft uppercase">Campus film</p>
+            <h2 className="mt-2 text-3xl font-extrabold md:text-4xl">See life at Mangaldeep</h2>
+            <p className="mt-4 text-base text-white/80">
+              Assemblies, classrooms and daily moments from our YouTube channel — the real feel of Ranip’s long-running science campus.
             </p>
-            <Button asChild className="mt-6" size="lg">
+            <Button asChild size="lg" className="mt-6 rounded-full bg-saffron font-bold text-white hover:bg-saffron/90">
               <a href={YOUTUBE_CHANNEL} target="_blank" rel="noreferrer">
-                Open YouTube channel
+                Open YouTube
               </a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-primary py-12">
-        <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">Ready to join?</h2>
-          <p className="mx-auto mt-3 max-w-lg text-base text-white/90">
-            Pre-Primary, Classes 1–10, Class 11 Science &amp; Commerce. Fill the form or WhatsApp us today.
+      {/* Enrol CTA — Adani Enrol Now */}
+      <section className="bg-saffron py-16">
+        <div className="mx-auto max-w-3xl px-4 text-center text-white">
+          <h2 className="text-3xl font-extrabold md:text-4xl">Enrol now for 2026–27</h2>
+          <p className="mx-auto mt-4 max-w-lg text-base text-white/90">
+            Pre-Primary, Classes 1–10, Class 11 Science &amp; Commerce. Fill the inquiry form or WhatsApp the office today.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg" className="bg-gold text-base font-bold text-ink hover:bg-gold/90">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg" className="rounded-full bg-white px-8 font-bold text-saffron hover:bg-cream">
               <Link to="/admissions">Apply Now</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-2 border-white text-base font-semibold text-white hover:bg-white/15">
-              <Link to="/contact">Contact office</Link>
+            <Button asChild size="lg" variant="outline" className="rounded-full border-2 border-white font-semibold text-white hover:bg-white/15">
+              <Link to="/contact">Ask us</Link>
             </Button>
           </div>
         </div>

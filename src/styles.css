@@ -1,28 +1,30 @@
 @import "tailwindcss";
 
+/* Palette inspired by Adani / GIIS / Podar: cream, emerald, saffron — not robotic navy */
 @theme {
-  /* Bright school blue primary + soft gold + green */
-  --color-bg: #f0f5fb;
+  --color-bg: #faf6f0;
   --color-paper: #ffffff;
   --color-surface: #ffffff;
-  --color-beige: #f5f0e8;
-  --color-ink: #122033;
-  --color-muted: #4a5c6e;
-  --color-primary: #0b6bcb;
-  --color-primary-dark: #084a8c;
-  --color-primary-light: #dceefc;
-  --color-gold: #e6a817;
-  --color-gold-soft: #fff8e6;
-  --color-green: #1f8a4c;
-  --color-green-soft: #e6f6ec;
-  --color-accent: #0b6bcb;
+  --color-cream: #f5efe6;
+  --color-ink: #1c1917;
+  --color-muted: #57534e;
+  --color-primary: #0f766e;
+  --color-primary-dark: #115e59;
+  --color-primary-light: #ccfbf1;
+  --color-saffron: #ea580c;
+  --color-saffron-soft: #ffedd5;
+  --color-gold: #d97706;
+  --color-gold-soft: #fef3c7;
+  --color-green: #15803d;
+  --color-green-soft: #dcfce7;
+  --color-accent: #0f766e;
   --color-accent-fg: #ffffff;
-  --color-border: #c8d6e5;
-  --color-line: #dce6f0;
-  --color-danger: #c0392b;
-  --color-navy: #0b6bcb;
-  --color-navy-deep: #084a8c;
-  --color-teal: #1f8a4c;
+  --color-border: #e7e5e4;
+  --color-line: #e7e5e4;
+  --color-danger: #b91c1c;
+  --color-navy: #0f766e;
+  --color-navy-deep: #115e59;
+  --color-teal: #0f766e;
   --font-display: "Figtree", "Segoe UI", system-ui, sans-serif;
   --font-sans: "Figtree", "Segoe UI", system-ui, sans-serif;
   --radius-sm: 0.5rem;
@@ -36,7 +38,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
   html, body, #app {
     min-height: 100%;
     background: var(--color-bg);
@@ -44,26 +45,16 @@
     font-family: var(--font-sans);
     font-size: 16px;
   }
-
   @media (max-width: 640px) {
-    html, body, #app {
-      font-size: 17px;
-    }
+    html, body, #app { font-size: 17px; }
   }
-
   h1, h2, h3 {
     text-wrap: balance;
     font-family: var(--font-sans);
     font-weight: 700;
   }
-
   p { text-wrap: pretty; }
-
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
   a { color: inherit; }
 }
 
